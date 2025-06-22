@@ -1,0 +1,28 @@
+$themeColor: linear-gradient(
+  48.98deg,
+  rgba(167, 214, 63, 0.9) -34.08%,
+  #39b54a 44.93%,
+  #9fd340 126.52%
+);
+$themeColorHover: #4b9a2a;
+$pageBackground: #e5e5e5;
+$lightButtonColor: #ffffff;
+$lightButtonBorderColor: #a0a0a0;
+$lightButtonColorHover: #f1f1f1;
+
+$red: #d61810;
+$yellow: #f2b239;
+$green: #10a310;
+
+.color {
+  color: $themeColor;
+}
+.red {
+  color: $red;
+}
+.yellow {
+  color: $yellow;
+}
+.green {
+  color: $green;
+}

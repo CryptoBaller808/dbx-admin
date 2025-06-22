@@ -1,0 +1,510 @@
+/* Real-Time Analytics Styles */
+
+.real-time-analytics {
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.analytics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.analytics-title {
+  color: white;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.analytics-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.analytics-controls .MuiFormControl-root {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+}
+
+.analytics-controls .MuiIconButton-root {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.analytics-controls .MuiIconButton-root:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.streaming-status {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.streaming-status .MuiChip-root {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.streaming-status .MuiTypography-root {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Live Stat Cards */
+.live-stat-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.live-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.live-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.stat-value {
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 8px 0;
+  animation: countUp 0.6s ease-out;
+}
+
+/* System Alerts */
+.system-alerts {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.system-alerts .MuiTypography-h6 {
+  color: white;
+  margin-bottom: 15px;
+}
+
+/* Health Metrics */
+.health-metric {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.health-metric:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Export Buttons */
+.export-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.export-buttons .MuiButton-root {
+  border-radius: 8px;
+  text-transform: none;
+  font-weight: 600;
+}
+
+/* Chart Containers */
+.MuiCard-root {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.MuiCard-root:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.MuiCardContent-root {
+  padding: 24px !important;
+}
+
+/* Tabs */
+.MuiTabs-root {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.MuiTab-root {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  text-transform: none;
+}
+
+.MuiTab-root.Mui-selected {
+  color: white;
+}
+
+.MuiTabs-indicator {
+  background: white;
+  height: 3px;
+  border-radius: 2px;
+}
+
+/* Dialog Styles */
+.MuiDialog-paper {
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.MuiDialogTitle-root {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  font-weight: 700;
+}
+
+.MuiDialogContent-root {
+  padding: 24px !important;
+}
+
+.MuiDialogActions-root {
+  padding: 16px 24px !important;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* Table Styles */
+.MuiTableContainer-root {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.MuiTableHead-root {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.MuiTableHead-root .MuiTableCell-root {
+  color: white;
+  font-weight: 700;
+  border-bottom: none;
+}
+
+.MuiTableBody-root .MuiTableRow-root:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+/* Form Controls */
+.MuiFormControl-root {
+  margin-bottom: 16px;
+}
+
+.MuiTextField-root {
+  margin-bottom: 16px;
+}
+
+.MuiInputLabel-root {
+  font-weight: 600;
+}
+
+.MuiOutlinedInput-root {
+  border-radius: 8px;
+}
+
+.MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #667eea;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #667eea;
+  border-width: 2px;
+}
+
+/* Chips */
+.MuiChip-root {
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.MuiChip-colorSuccess {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: white;
+}
+
+.MuiChip-colorError {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+}
+
+.MuiChip-colorWarning {
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+}
+
+/* Buttons */
+.MuiButton-contained {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 8px;
+  text-transform: none;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.MuiButton-contained:hover {
+  background: linear-gradient(135deg, #5a6fd8, #6a4190);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  transform: translateY(-2px);
+}
+
+.MuiButton-outlined {
+  border-color: #667eea;
+  color: #667eea;
+  border-radius: 8px;
+  text-transform: none;
+  font-weight: 600;
+}
+
+.MuiButton-outlined:hover {
+  background: rgba(102, 126, 234, 0.1);
+  border-color: #5a6fd8;
+}
+
+/* Switches */
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked {
+  color: #667eea;
+}
+
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+  background: #667eea;
+}
+
+/* Progress */
+.MuiLinearProgress-root {
+  border-radius: 4px;
+  height: 6px;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.MuiLinearProgress-bar {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Alerts */
+.MuiAlert-root {
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.MuiAlert-standardError {
+  background: rgba(231, 76, 60, 0.1);
+  border-color: rgba(231, 76, 60, 0.3);
+}
+
+.MuiAlert-standardWarning {
+  background: rgba(243, 156, 18, 0.1);
+  border-color: rgba(243, 156, 18, 0.3);
+}
+
+.MuiAlert-standardInfo {
+  background: rgba(52, 152, 219, 0.1);
+  border-color: rgba(52, 152, 219, 0.3);
+}
+
+.MuiAlert-standardSuccess {
+  background: rgba(39, 174, 96, 0.1);
+  border-color: rgba(39, 174, 96, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .real-time-analytics {
+    padding: 16px;
+  }
+  
+  .analytics-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .analytics-controls {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .streaming-status {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .export-buttons {
+    justify-content: center;
+  }
+  
+  .health-metric {
+    padding: 16px;
+  }
+  
+  .MuiCardContent-root {
+    padding: 16px !important;
+  }
+}
+
+/* Animation for live updates */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+  }
+}
+
+.live-stat-card.updating {
+  animation: pulse 2s infinite;
+}
+
+/* Scrollbar Styling */
+.MuiTableContainer-root::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.MuiTableContainer-root::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.MuiTableContainer-root::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 4px;
+}
+
+.MuiTableContainer-root::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd8, #6a4190);
+}
+
+/* Status Indicators */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-indicator.online {
+  background: rgba(39, 174, 96, 0.1);
+  color: #27ae60;
+  border: 1px solid rgba(39, 174, 96, 0.3);
+}
+
+.status-indicator.offline {
+  background: rgba(231, 76, 60, 0.1);
+  color: #e74c3c;
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.status-indicator.warning {
+  background: rgba(243, 156, 18, 0.1);
+  color: #f39c12;
+  border: 1px solid rgba(243, 156, 18, 0.3);
+}
+
+/* Loading States */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  z-index: 1000;
+}
+
+/* Glassmorphism Effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+

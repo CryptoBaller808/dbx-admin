@@ -1,0 +1,2452 @@
+@import "./Colors.scss";
+@import "./Props.scss";
+@import "./media.scss";
+@import url("https://fonts.cdnfonts.com/css/sofia-pro");
+
+.font,
+body {
+  font-family: "Sofia Pro", sans-serif;
+}
+
+.font-b {
+  font-family: "Heebo", sans-serif;
+}
+
+@mixin bgImage($radius: 50%) {
+  height: 100%;
+  width: 100%;
+  border-radius: $radius;
+  background-color: #e2e2e2;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+@mixin dropDownAnim($duration: 0.3s) {
+  animation-name: drop;
+  animation-duration: $duration;
+  transform-origin: top;
+}
+
+@keyframes drop {
+  0% {
+    transform: scaleY(0.5);
+    opacity: 0;
+  }
+}
+
+.wrapWidth {
+  width: 100%;
+  padding: 30px;
+
+  @include media("<=xlarge") {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  @include media("<=large") {
+    width: 100%;
+    padding: 0px 3%;
+  }
+
+  @include media("<=desktop") {
+    width: 100%;
+    padding: 0px 3%;
+  }
+
+  @include media("<=tablet") {
+    // width: 540px;
+    padding: 0px 3%;
+  }
+
+  @include media(">=phone", "<=480px") {
+    padding: 0px 5%;
+  }
+}
+
+.App {
+  min-height: 100vh;
+  background: #e5e5e5;
+}
+
+.app-pages {
+  width: 100%;
+}
+
+// Toggle
+.toggle-btn {
+  flex: 0.4;
+
+  .btn {
+    display: flex !important;
+    border-radius: 50px;
+    padding: 10px 22px !important;
+    background: #14192d;
+    opacity: 0.4;
+
+    .circle {
+      left: 2px;
+      // margin-bottom: 1px;
+      padding: 8px;
+      background: #fff;
+      border-radius: 50%;
+    }
+
+    &.on {
+      background: #26c265;
+      opacity: 1;
+
+      .circle {
+        left: 25px;
+        // background: $themeColor !important;
+      }
+    }
+  }
+}
+
+//Drop Down
+.dropDown {
+  width: 100%;
+
+  .category {
+    width: 100%;
+
+    .cbox {
+      background: rgba(196, 196, 196, 0.25);
+      // border: 1px solid #4b9a2a;
+      padding: 0 16px;
+      min-height: 42px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      min-width: 121px;
+      width: 100%;
+      height: 40px; 
+      justify-content: space-between;
+
+      // &:hover {
+      //   border: 1px solid #fff;
+      // }
+      @include media(">=phone", "<=480px") {
+        min-width: 150px;
+      }
+
+      .icon-arrow {
+        svg {
+          path {
+            fill: #000;
+          }
+        }
+      }
+
+      .slt {
+        overflow: hidden;
+
+        .ico {
+          cursor: pointer;
+          color: #000000d9;
+          height: 22px;
+          display: flex;
+          align-items: center;
+        }
+
+        .lbl {
+          color: #000;
+          padding: 0 10px;
+        }
+
+        .unit-name {
+          .unit-eng {
+            color: #000;
+          }
+        }
+      }
+
+      svg {
+        path {
+          fill: #000;
+        }
+      }
+
+      .d-img {
+        margin: 2px 10px;
+
+        .img {
+          height: 25px;
+          width: 25px;
+          padding: 2.5px;
+          border-radius: 100%;
+          border: 1px solid $themeColor;
+        }
+      }
+
+      .edit-icon {
+        margin: 2px 10px;
+        padding: 4px;
+        border-radius: 100%;
+        border: 1px solid $themeColor;
+      }
+
+      .dropDown-icon {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .block {
+    top: 45px;
+    left: 0;
+    right: 0;
+    border-radius: 4px;
+    border: 1px solid $themeColor;
+    background: #eee;
+    box-shadow: 0 4px 8px rgb(0 0 0 / 10%);
+    visibility: hidden;
+    opacity: 0;
+    z-index: 2;
+    width: 100%;
+
+    .manue {
+      width: 100%;
+      // height: 150px;
+      overflow-y: auto;
+      padding: 0px 0px;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      .slt {
+        width: 100%;
+        padding: 8px 16px;
+        @include anim;
+
+        &.active {
+          background-color: $themeColor;
+          color: #242424;
+
+          .unit-name {
+            .unit-eng {
+              color: #242424;
+            }
+          }
+        }
+
+        .unit-name {
+          .unit-eng {
+            color: #000;
+          }
+        }
+
+        .ico {
+          justify-content: flex-start;
+          margin-right: 8px;
+          width: 25px;
+          height: 25px;
+        }
+
+        .lbl {
+          flex: 1;
+          margin-left: 5px;
+          justify-content: flex-start;
+        }
+
+        &:hover {
+          // background-color: #000;
+          cursor: pointer;
+
+          .ico {
+            color: $themeColor;
+          }
+
+          .lbl {
+            color: $themeColor;
+          }
+        }
+      }
+    }
+
+    &.show {
+      display: flex;
+      visibility: visible;
+      opacity: 1;
+      @include dropDownAnim;
+    }
+  }
+}
+
+//Radio Button
+.radio-btn {
+  top: -11px;
+  height: 22px;
+  width: 22px;
+  background: #000403;
+  min-width: 22px;
+  border: 2px solid $themeColor;
+  border-radius: 50%;
+  margin-right: 12px;
+
+  &::before {
+    content: "";
+    content: "";
+    position: absolute;
+    height: 14px;
+    width: 14px;
+    min-width: 14px;
+    background: $themeColor;
+    border-radius: 50%;
+    left: 2px;
+    top: 2px;
+    visibility: hidden;
+    opacity: 0;
+    @include anim;
+  }
+
+  &.on {
+    border-color: $themeColor;
+
+    &:before {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+
+// Header
+.header-cmp {
+  z-index: 999;
+  background: transparent;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 80px;
+  padding: 12px 0px;
+  position: relative;
+  background-color: #ffffff;
+
+  @include media(">=phone", "<=480px") {
+    background: #e5e5e5;
+  }
+
+  .wrap {
+
+    // padding: 0px 20px;
+    .left {
+      flex: 1;
+
+      .logo {
+        display: none;
+
+        @include media(">=phone", "<=480px") {
+          display: flex;
+        }
+      }
+
+      .welcome {
+        @include media(">=phone", "<=480px") {
+          display: none;
+        }
+
+        .wel-tag {
+          color: #333539;
+          font-family: "Sofia Pro";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+        }
+
+        .welback-tag {
+          font-family: "Sofia Pro";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          color: #14192d;
+          opacity: 0.5;
+        }
+      }
+    }
+
+    .right {
+      flex: 1;
+      justify-content: flex-end;
+
+      .menu-icon {
+        display: none;
+
+        @include media(">=phone", "<=480px") {
+          display: flex;
+
+          svg {
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+
+            path {
+              stroke: #14192d;
+              fill: #14192d;
+            }
+          }
+        }
+      }
+
+      .notification-ball {
+        cursor: pointer;
+        margin-right: 28px;
+
+        @include media(">=phone", "<=480px") {
+          display: none;
+        }
+
+        .noti-numb {
+          background: #f54a4a;
+          border: 1px solid #f54a4a;
+          border-radius: 50%;
+          height: 16px;
+          width: 16px;
+          font-family: "Sofia Pro";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 12px;
+          color: #ffffff;
+          top: -2px;
+          right: -6px;
+
+          @include media(">=phone", "<=480px") {
+            display: none;
+          }
+        }
+      }
+
+      .user-info {
+        @include media(">=phone", "<=480px") {
+          display: none;
+        }
+
+        .u-img {
+          border-radius: 50%;
+          height: 44px;
+          width: 44px;
+          object-fit: cover;
+        }
+
+        .user-meta {
+          margin-left: 14px;
+
+          .name {
+            font-family: "Sofia Pro";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            color: #333539;
+          }
+
+          .desi {
+            font-family: "Sofia Pro";
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333539;
+
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+}
+
+.sidebar {
+  width: 240px;
+
+  @include media(">=phone", "<=480px") {
+    display: none;
+  }
+}
+
+// Nave Bar
+.navbar {
+  background: #002244;
+  width: 100%;
+  height: 100%;
+
+  @include media(">=phone", "<=480px") {
+    display: none;
+  }
+
+  .wrap {
+    width: 100%;
+
+    .logo {
+      padding: 16px 2%;
+
+      .logo-img {}
+    }
+
+    .nav-list {
+      padding: 40px 3px;
+      margin: 8px 0;
+
+      .list-item {
+        padding: 0 30px;
+        width: 100%;
+        cursor: pointer;
+        border-left: 4px solid transparent;
+        margin: 10px 0;
+        @include anim;
+
+        .select {
+          @include anim;
+
+          .ico {
+            svg {
+              opacity: 0.5;
+            }
+          }
+
+          .lbl {
+            margin-left: 10px;
+            font-family: "Sofia Pro";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            color: #ffffff;
+            opacity: 0.5;
+          }
+
+          &:hover {
+            @include anim;
+
+            svg {
+              opacity: 1;
+
+              path {
+                fill: #4b9a2a;
+              }
+            }
+
+            .lbl {
+              opacity: 1;
+              color: #4b9a2a;
+            }
+          }
+        }
+
+        &.active {
+          @include anim;
+          border-left: 4px solid #4b9a2a;
+
+          .select {
+            svg {
+              opacity: 1;
+
+              path {
+                fill: #4b9a2a;
+              }
+            }
+
+            .lbl {
+              opacity: 1;
+              color: #4b9a2a;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Home Page
+.home-p {
+  min-height: 730px;
+  height: 100%;
+  width: 100%;
+  padding: 20px 0;
+
+  .wrap {
+    .home-report {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 20px;
+
+      @include media(">=phone", "<=480px") {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .report-item {
+        height: 120px;
+        padding: 14px;
+        background: #ffffff;
+        box-shadow: 0px 10px 40px rgba(20, 25, 45, 0.05);
+        border-radius: 10px;
+
+        .icon {
+          margin-right: 15px;
+
+          .icon-img {}
+        }
+
+        .meta {
+          .val {
+            font-family: "Sofia Pro";
+            font-style: normal;
+            font-weight: 600;
+            font-size: 24px;
+            color: #14192d;
+          }
+
+          .lbl {
+            font-family: "Sofia Pro";
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            color: #14192d;
+            opacity: 0.4;
+          }
+        }
+      }
+    }
+
+    .transation-chart-blk {
+      background: #ffffff;
+      margin-top: 30px;
+      border-radius: 2px;
+      padding: 15px;
+      min-height: 400px;
+
+      .chart-hdr {
+        justify-content: space-between;
+
+        .chart-tag {
+          font-family: "Sofia Pro";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 26px;
+          color: #14192d;
+
+          @include media(">=phone", "<=480px") {
+            font-size: 14px;
+          }
+        }
+
+        .dropDown {
+          width: 20%;
+
+          @include media(">=phone", "<=480px") {
+            width: 40%;
+          }
+
+          .category {
+            .cbox {
+              background: #fff;
+              border: 1px solid rgba(20, 25, 45, 0.1);
+              border-radius: 5px;
+
+              @include media(">=phone", "<=480px") {
+                min-width: 20px;
+              }
+            }
+          }
+        }
+      }
+
+      .chart {
+        padding: 15px 6px;
+
+        @include media(">=phone", "<=480px") {
+          svg {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.crpto-page {
+  min-height: 730px;
+  height: 100%;
+  width: 100%;
+  padding: 20px 0;
+
+  .wrap {
+    .pg-hder {
+
+      // justify-content: space-between;
+      .page-tag {
+        font-family: "Sofia Pro";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        color: #14192d;
+
+        @include media(">=phone", "<=480px") {
+          font-size: 16px;
+        }
+      }
+
+      .right-side {
+        flex: 1;
+        justify-content: flex-end;
+
+        .actions {
+          width: 100%;
+          justify-content: end;
+
+          .dropDown {
+            width: 20%;
+
+            @include media(">=phone", "<=480px") {
+              display: none;
+            }
+
+            .category {
+              .cbox {
+                background: #fff;
+                border: 1px solid rgba(20, 25, 45, 0.1);
+                border-radius: 5px;
+              }
+            }
+          }
+
+          .btn-load {
+            margin: 0 16px;
+            height: 40px;
+            width: 130px; 
+            border-radius: 6px;
+            display: flex !important;
+            background: #fff;
+
+            @include media(">=phone", "<=480px") {
+              height: 30px;
+              width: 40px;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .ico {
+              margin-right: 15px;
+
+              @include media(">=phone", "<=480px") {
+                margin: 0;
+              }
+            }
+
+            .btn-lbl {
+              font-family: "Sofia Pro";
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              color: rgba(20, 25, 45, 0.7);
+
+              @include media(">=phone", "<=480px") {
+                display: none;
+              }
+            }
+          }
+
+          .btn-new {
+            width: 164px;
+            height: 40px;
+            border-radius: 6px;
+            display: flex !important;
+
+            @include media(">=phone", "<=480px") {
+              height: 30px;
+              width: 40px;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .ico {
+              margin-right: 15px;
+
+              @include media(">=phone", "<=480px") {
+                margin: 0;
+              }
+            }
+
+            .btn-lbl {
+              font-family: "Sofia Pro";
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              color: #fff;
+
+              @include media(">=phone", "<=480px") {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .my-table {
+      margin: 10px 0;
+      overflow: auto;
+      width: 100%;
+      border-radius: 6px;
+
+      @include media(">=phone", "<=480px") {
+        width: 346px;
+      }
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .table-blk {
+        margin: 30px 0;
+        border-radius: 6px;
+        background-color: #fff;
+        width: 100%;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        @include media(">=phone", "<=480px") {
+          width: 1024px;
+        }
+
+        .crypto-tbl {
+          width: 100%;
+
+          &::-webkit-scrollbar {
+            width: 4px;
+          }
+
+          @include media(">=phone", "<=480px") {
+            width: 1024px;
+          }
+
+          .tbl-row {
+            color: #14192d;
+            opacity: 0.7;
+            padding: 14px 14px;
+            width: 100%;
+            border-bottom: 1.4px solid #f7f7f7;
+
+            .row-item {
+              flex: 1;
+              padding: 0 6px;
+
+              .nft-logo {
+                height: 36px;
+                width: 36px;
+                border-radius: 50%;
+              }
+
+              .r-actions {
+                border: 1.3px solid #a6aebb;
+                height: 34px;
+                width: 100px;
+
+                .ico {
+                  flex: 1 1;
+                  height: 100%;
+                  width: 15px;
+                  border-right: 1.3px solid #a6aebb;
+                  cursor: pointer;
+
+                }
+              }
+
+              svg {
+                cursor: pointer;
+              }
+
+              &:nth-child(1) {
+                flex: 2;
+              }
+
+              &:nth-child(2) {}
+
+              flex: 2;
+
+              &:nth-child(3) {
+                justify-content: center;
+              }
+
+              &:nth-child(4) {
+                justify-content: center;
+              }
+
+              &:nth-child(5) {
+                justify-content: center;
+              }
+
+              &:nth-child(6) {
+                justify-content: center;
+              }
+
+              &:nth-child(7) {
+                justify-content: center;
+              }
+
+              &:nth-child(8) {
+                justify-content: center;
+              }
+            }
+
+            &:first-child {
+              padding: 10px;
+
+              .row-item {
+                opacity: 0.5;
+                color: #14192d;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.blockchain-page {
+  min-height: 730px;
+  height: 100%;
+  width: 100%;
+  padding: 20px 0;
+
+  .wrap {
+    .pg-hder {
+
+      // justify-content: space-between;
+      .page-tag {
+        font-family: "Sofia Pro";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        color: #14192d;
+
+        @include media(">=phone", "<=480px") {
+          font-size: 16px;
+        }
+      }
+
+      .right-side {
+        flex: 1;
+        justify-content: flex-end;
+
+        .actions {
+          width: 100%;
+          justify-content: end;
+
+          .btn-load {
+            margin: 0 16px;
+            width: 130px;
+            height: 40px;
+            border-radius: 6px;
+            display: flex !important;
+            background: #fff;
+
+            @include media(">=phone", "<=480px") {
+              height: 40px;
+              width: 40px;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .ico {
+              margin-right: 15px;
+
+              @include media(">=phone", "<=480px") {
+                margin: 0;
+              }
+            }
+
+            .btn-lbl {
+              font-family: "Sofia Pro";
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              color: rgba(20, 25, 45, 0.7);
+
+              @include media(">=phone", "<=480px") {
+                display: none;
+              }
+            }
+          }
+
+          .btn-new {
+            width: 164px;
+            height: 40px;
+            border-radius: 6px;
+            display: flex !important;
+
+            @include media(">=phone", "<=480px") {
+              height: 40px;
+              width: 40px;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .ico {
+              margin-right: 15px;
+
+              @include media(">=phone", "<=480px") {
+                margin: 0;
+              }
+            }
+
+            .btn-lbl {
+              font-family: "Sofia Pro";
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              color: #fff;
+
+              // color: rgba(20, 25, 45, 0.7);
+              @include media(">=phone", "<=480px") {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .table-blk {
+      margin: 30px 0px;
+      border-radius: 6px;
+      background-color: #fff;
+
+      .crypto-tbl {
+        width: 100%;
+
+        .tbl-row {
+          color: #14192d;
+          opacity: 0.7;
+          padding: 14px 14px;
+          width: 100%;
+          border-bottom: 1.4px solid #f7f7f7;
+
+          .row-item {
+            flex: 1;
+            padding: 0 10px;
+
+            .nft-logo {
+              height: 36px;
+              width: 36px;
+              border-radius: 50%;
+            }
+
+            svg {
+              cursor: pointer;
+            }
+
+            &:first-child {
+              flex: 0.4;
+            }
+
+            &:last-child {
+              flex: 0.4;
+            }
+
+            &:nth-child(2) {
+              flex: 1.4;
+            }
+
+            &:nth-child(6) {
+              flex: 1.4;
+            }
+          }
+
+          &:first-child {
+            padding: 10px;
+
+            .row-item {
+              opacity: 0.5;
+              color: #14192d;
+            }
+          }
+
+          @include media(">=phone", "<=480px") {
+            .row-item {
+              font-size: 12px;
+
+              &:nth-child(6) {
+                display: none;
+              }
+
+              &:nth-child(7) {
+                display: none;
+              }
+
+              &:nth-child(8) {
+                display: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.users-page {
+  min-height: 730px;
+  height: 100%;
+  width: 100%;
+  padding: 20px 0;
+
+  .wrap {
+    .pg-hder {
+
+      // justify-content: space-between;
+      @include media(">=phone", "<=480px") {
+        flex-direction: column;
+      }
+
+      .page-tag {
+        font-family: "Sofia Pro";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        color: #14192d;
+
+        @include media(">=phone", "<=480px") {
+          font-size: 18px;
+        }
+      }
+
+      .right-side {
+        flex: 1;
+        justify-content: flex-end;
+
+        @include media(">=phone", "<=480px") {
+          justify-content: center;
+          width: 100%;
+        }
+
+        .actions {
+          width: 100%;
+          justify-content: end;
+
+          @include media(">=phone", "<=480px") {
+            flex-direction: column;
+            justify-content: center;
+          }
+
+          .dropDown {
+            width: 20%;
+
+            @include media(">=phone", "<=480px") {
+              width: 100%;
+            }
+
+            .category {
+              .cbox {
+                background: #fff;
+                border: 1px solid rgba(20, 25, 45, 0.1);
+                border-radius: 5px;
+              }
+            }
+          }
+
+          .search-box {
+            margin-right: 15px;
+            // padding: 6px 6px;
+            border-radius: 6px;
+            background: #fff;
+            overflow: hidden;
+
+            @include media(">=phone", "<=480px") {
+              margin-right: 0;
+              margin-top: 15px;
+              margin-bottom: 15px;
+              width: 100%;
+            }
+
+            .ico {
+              padding: 6px;
+              cursor: pointer;
+            }
+
+            .txt {
+              font-weight: 400;
+              font-size: 12px;
+              color: #14192d;
+              padding: 0 8px;
+            }
+          }
+        }
+      }
+    }
+
+    .desc {
+      padding: 14px;
+      background: #ffffff;
+      margin: 20px 0;
+      box-shadow: 0px 10px 40px rgba(20, 25, 45, 0.05);
+      border-radius: 5px;
+
+      p {
+        color: #14192d;
+        opacity: 0.6;
+      }
+    }
+
+    .my-table {
+      margin: 10px 0;
+      overflow: auto;
+      width: 100%;
+      border-radius: 6px;
+      background: #fff;
+
+      @include media(">=phone", "<=480px") {
+        width: 346px;
+      }
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .table-blk {
+        margin: 30px 0;
+        border-radius: 6px;
+        background-color: #fff;
+        width: 100%;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        @include media(">=phone", "<=480px") {
+          width: 1024px;
+        }
+
+        .crypto-tbl {
+          width: 100%;
+
+          .tbl-row {
+            color: #14192d;
+            opacity: 0.7;
+            padding: 14px 14px;
+            width: 100%;
+            border-bottom: 1.4px solid #f7f7f7;
+            width: 100%;
+
+            &::-webkit-scrollbar {
+              width: 4px;
+            }
+
+            @include media(">=phone", "<=480px") {
+              width: 1024px;
+            }
+
+            .row-item {
+              flex: 1;
+              padding: 0 10px;
+
+              .status {
+                color: #1fd080;
+
+                .dot {
+                  margin-right: 4px;
+                  height: 8px;
+                  width: 8px;
+                  border-radius: 50%;
+                  background-color: #1fd080;
+                }
+
+                &.inactive {
+                  color: #14192d;
+                  opacity: 0.7;
+
+                  .dot {
+                    background-color: #14192d;
+                    opacity: 0.7;
+                  }
+                }
+              }
+
+              .r-actions {
+                border: 1.3px solid #a6aebb;
+                height: 34px;
+                width: 160px;
+
+                .ico {
+                  flex: 1;
+                  height: 100%;
+                  width: 15px;
+                  border-right: 1.3px solid #a6aebb;
+
+                  cursor: pointer;
+
+                  &:last-child {
+                    border-right: none;
+                  }
+                }
+
+                .icon-warn {
+                  @include anim;
+
+                  &:hover {
+                    background: #ef9e2d;
+
+                    svg {
+                      path {
+                        fill: #fff;
+                      }
+                    }
+                  }
+                }
+
+                .icon-del {
+                  @include anim;
+
+                  &:hover {
+                    background: #ed553b;
+
+                    svg {
+                      path {
+                        fill: #fff;
+                      }
+                    }
+                  }
+                }
+
+                .icon-env {
+                  @include anim;
+
+                  &:hover {
+                    background: #4ac4ee;
+
+                    svg {
+                      path {
+                        fill: #fff;
+                      }
+                    }
+                  }
+                }
+
+                .icon-up {
+                  @include anim;
+
+                  &:hover {
+                    background: #2b72ad;
+
+                    svg {
+                      path {
+                        fill: #fff;
+                      }
+                    }
+                  }
+                }
+
+                .icon-up1 {
+                  @include anim;
+
+                  &:hover {
+                    background: #1fd080;
+
+                    svg {
+                      path {
+                        fill: #fff;
+                      }
+                    }
+                  }
+                }
+              }
+
+              &:nth-child(3) {
+                flex: 0.5;
+              }
+            }
+
+            &:first-child {
+              padding: 10px;
+
+              .row-item {
+                opacity: 0.5;
+                color: #14192d;
+              }
+            }
+
+            @include media(">=phone", "<=480px") {}
+          }
+        }
+      }
+    }
+  }
+}
+
+.transaction-page {
+  min-height: 730px;
+  height: 100%;
+  width: 100%;
+  padding: 20px 0;
+
+  .wrap {
+    .pg-hder {
+      @include media(">=phone", "<=480px") {
+        flex-direction: column;
+        align-items: start;
+      }
+
+      .page-tag {
+        font-family: "Sofia Pro";
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        color: #14192d;
+
+        @include media(">=phone", "<=480px") {
+          font-size: 16px;
+        }
+      }
+
+      .right-side {
+        flex: 1;
+        justify-content: flex-end;
+
+        @include media(">=phone", "<=480px") {
+          justify-content: start;
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .actions {
+          width: 100%;
+          justify-content: end;
+
+          @include media(">=phone", "<=480px") {
+            flex-direction: column;
+          }
+
+          .dropDown {
+            width: 20%;
+
+            @include media(">=phone", "<=480px") {
+              width: 100%;
+            }
+
+            .category {
+              .cbox {
+                background: #fff;
+                border: 1px solid rgba(20, 25, 45, 0.1);
+                border-radius: 5px;
+              }
+            }
+          }
+
+          .search-box {
+            margin-right: 15px;
+            padding: 6px 6px;
+            border-radius: 6px;
+            background: #fff;
+
+            @include media(">=phone", "<=480px") {
+              width: 100%;
+              margin-right: 0;
+              margin-top: 15px;
+              margin-bottom: 15px;
+            }
+
+            .ico {}
+
+            .txt {
+              cursor: pointer;
+              font-weight: 400;
+              font-size: 14px;
+              color: #14192d;
+              padding: 0 8px;
+            }
+          }
+        }
+      }
+    }
+
+    .my-table {
+      margin: 10px 0;
+      overflow: auto;
+      width: 100%;
+      border-radius: 6px;
+      background: #fff;
+
+      @include media(">=phone", "<=480px") {
+        width: 346px;
+      }
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .table-blk {
+        margin: 30px 0;
+        border-radius: 6px;
+        background-color: #fff;
+        width: 100%;
+
+        &::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        @include media(">=phone", "<=480px") {
+          width: 1024px;
+        }
+
+        .crypto-tbl {
+          width: 100%;
+
+          .tbl-row {
+            color: #14192d;
+            opacity: 0.7;
+            padding: 14px 14px;
+            width: 100%;
+            border-bottom: 1.4px solid #f7f7f7;
+
+            .row-item {
+              flex: 1;
+              font-size: 13px;
+              padding: 0 10px;
+
+              .nft-name {
+                margin-left: 14px;
+              }
+
+              .nft-logo {
+                height: 26px;
+                width: 26px;
+                border-radius: 50%;
+              }
+
+              .btn {
+                padding: 6px 12px;
+                font-size: 13px;
+                border-radius: 5px;
+                cursor: pointer;
+
+                &:first-child {
+                  color: #26c265;
+                  background: rgba(38, 194, 101, 0.1);
+                }
+
+                &:last-child {
+                  color: #f54a4a;
+                  margin-left: 14px;
+                  background: rgba(245, 74, 74, 0.1);
+                }
+              }
+
+              &:last-child {
+                flex: 2;
+              }
+            }
+
+            &:first-child {
+              padding: 10px;
+
+              .row-item {
+                opacity: 0.5;
+                color: #14192d;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.tracking-page {
+  min-height: 730px;
+  height: 100%;
+  width: 100 vw !important;
+  padding: 20px 0;
+
+  .wrap {
+    .page-hdr {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-gap: 20px;
+      height: 150px;
+
+      @include media(">=phone", "<=480px") {
+        grid-template-columns: repeat(2, 1fr);
+        height: 100%;
+      }
+
+      .box {
+        height: 140px;
+        padding: 14px;
+        background: #ffffff;
+        box-shadow: 0px 10px 40px rgba(20, 25, 45, 0.05);
+        border-radius: 10px;
+
+        .icon {
+          margin-right: 15px;
+
+          .icon-img {}
+        }
+
+        .meta {
+          margin-top: 4px;
+
+          .val {
+            font-family: "Sofia Pro";
+            font-style: normal;
+            font-weight: 600;
+            font-size: 18px;
+            color: #14192d;
+          }
+
+          .lbl {
+            font-family: "Sofia Pro";
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            color: #14192d;
+            opacity: 0.4;
+          }
+        }
+      }
+    }
+
+    .mid-sec {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 25px;
+      height: 278px;
+      margin: 20px 0;
+
+      @include media(">=phone", "<=480px") {
+        grid-template-columns: repeat(1, 1fr);
+        height: 100%;
+      }
+
+      .left {
+        background: #fff;
+        border-radius: 4px;
+        padding: 18px;
+
+        .left-tag {
+          font-family: "Sofia Pro";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          color: #14192d;
+        }
+
+        .row-lists {
+          padding-top: 12px;
+          padding-bottom: 6px;
+
+          .row-item {
+            width: 100%;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+
+            .le {
+              font-family: "Sofia Pro";
+              font-style: normal;
+              font-weight: 400;
+              font-size: 14px;
+              color: #14192d;
+              opacity: 0.7;
+            }
+
+            .re {
+              font-family: "Sofia Pro";
+              font-style: normal;
+              font-weight: 500;
+              font-size: 16px;
+              line-height: 150%;
+              text-align: right;
+              color: #14192d;
+            }
+          }
+        }
+      }
+
+      .right {
+        background: #fff;
+        border-radius: 4px;
+        padding: 18px;
+
+        .right-tag {
+          font-family: "Sofia Pro";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          color: #14192d;
+        }
+
+        .map-box {
+          width: 100%;
+          padding: 6px 0;
+
+          @include media(">=phone", "<=480px") {
+            svg {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    .visitor-graph {
+      background: #ffffff;
+      margin-top: 30px;
+      border-radius: 2px;
+      padding: 15px;
+      min-height: 400px;
+
+      @include media(">=phone", "<=480px") {
+        height: 100%;
+      }
+
+      .chart-hdr {
+        justify-content: space-between;
+
+        @include media(">=phone", "<=480px") {
+          flex-direction: column;
+        }
+
+        .chart-tag {
+          font-family: "Sofia Pro";
+          font-style: normal;
+          font-weight: 500;
+          font-size: 26px;
+          color: #14192d;
+
+          @include media(">=phone", "<=480px") {
+            font-size: 16px;
+          }
+        }
+
+        .chart-right {
+          flex: 1;
+          justify-content: flex-end;
+
+          @include media(">=phone", "<=480px") {
+            justify-content: start;
+          }
+
+          .chart-options {
+            margin-right: 20px;
+
+            .chart-item {
+              margin-right: 10px;
+
+              .checkbox {
+                margin-right: 4px;
+              }
+
+              .lbl {
+                font-family: "Sofia Pro";
+                font-style: normal;
+                font-weight: 400;
+                font-size: 13px;
+                color: #333539;
+                opacity: 0.5;
+
+                @include media(">=phone", "<=480px") {
+                  display: none;
+                }
+              }
+            }
+          }
+
+          .dropDown {
+            width: 20%;
+
+            @include media(">=phone", "<=480px") {
+              width: 100%;
+            }
+
+            .category {
+              .cbox {
+                background: #fff;
+                border: 1px solid rgba(20, 25, 45, 0.1);
+                border-radius: 5px;
+              }
+            }
+          }
+        }
+      }
+
+      .graph {
+        padding: 15px 6px;
+
+        @include media(">=phone", "<=480px") {
+          svg {
+            width: 100%;
+            height: 244px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Sider Bar
+.sidebar-s {
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 99999;
+  height: 100%;
+  inset: 0;
+  overflow: hidden;
+
+  .side-block {
+    width: 280px;
+    background: #002244;
+    height: 100%;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    transition: all 0.3s cubic-bezier(0.9, 0.32, 0.46, 1.18) 0s;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    @include media(">=phone", "<=480px") {
+      width: 70%;
+    }
+
+    &.show {
+      right: 0;
+
+      .body {
+        overflow-y: hidden;
+      }
+    }
+
+    &.hide {
+      right: -450px;
+    }
+
+    .hdr {
+      // flex: 0.2;
+      padding: 14px;
+      width: 100%;
+      justify-content: flex-end;
+
+      background-color: $themeColor;
+
+      .icon-close {
+        height: 20px;
+        cursor: pointer;
+
+        svg {
+          height: 30px;
+          width: 30px;
+
+          path {
+            stroke: #fff;
+            fill: #fff;
+          }
+        }
+      }
+    }
+
+    .items {
+      padding: 0 18px;
+
+      .list-item {
+        width: 100%;
+
+        .li {
+          width: 70%;
+          cursor: pointer;
+          font-size: 16px;
+          font-weight: 500;
+          margin-right: 30px;
+          padding-bottom: 12px;
+          margin-bottom: 30px;
+          border-bottom: 2px solid transparent;
+          @include anim;
+
+          &:hover {
+            // border-bottom: 2px solid #fb5f38;
+            color: #26c265 !important;
+          }
+
+          @include media("<=desktop") {
+            font-size: 15px;
+            margin-right: 28px;
+            text-align: center;
+          }
+
+          @include media("<=tablet") {
+            display: flex;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.add-currencie {
+  min-height: 500px;
+  // width: 550px;
+  width: 720px;
+  background-color: #fff;
+  padding: 15px 20px;
+
+  @include media(">=phone", "<=480px") {
+    width: 340px;
+  }
+
+  .wrap {
+    .add-hdr {
+      width: 100%;
+      justify-content: space-between;
+
+      .lbl {
+        font-family: "Sofia Pro";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 20px;
+        color: #14192d;
+      }
+
+      .close-side {
+        .icon-close {
+          height: 40px;
+          width: 40px;
+          cursor: pointer;
+          background: #f3f4f8;
+          border-radius: 50%;
+        }
+      }
+    }
+
+    .data-block {
+      padding: 25px 0 0px 0px;
+      // height: 350px;
+      max-height: 75vh;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        width: 5px;
+      }
+
+      @include media(">=phone", "<=480px") {
+        flex-direction: column;
+        padding: 25px 3%;
+      }
+
+      .left {
+        flex: 0.3;
+        padding-right: 20px;
+        padding-top: 10px;
+
+        .road-map {
+          border-right: 2px solid #eee;
+
+          .item {
+            margin-bottom: 50px;
+            position: relative;
+            border-right: 2px solid #eee;
+
+            &:last-child {
+              margin-bottom: 0px;
+            }
+
+            .item-lbl {
+              color: #000;
+              font-weight: 500;
+              font-size: 16px;
+              font-family: "Sofia Pro";
+              font-style: normal;
+              margin-right: 28px;
+
+              &.active {
+                color: #4b9a2a;
+              }
+            }
+
+            .item-icon {
+              position: absolute;
+              right: -16px;
+              border-radius: 50%;
+              background: #ddd;
+              // opacity: 0.1;
+              height: 30px;
+              width: 30px;
+
+              svg {
+                path {
+                  fill: #8f8f8f;
+                }
+              }
+
+              &.active {
+                background: #edf5ea;
+
+                svg {
+                  path {
+                    fill: #4b9a2a;
+                  }
+                }
+              }
+            }
+
+            &:first-child {
+              .item-lbl {
+                color: #4b9a2a;
+              }
+
+              .item-icon {
+                background: #edf5ea;
+
+                svg {
+                  path {
+                    fill: #4b9a2a;
+                  }
+                }
+              }
+            }
+
+            &.active {
+              .item-lbl {
+                color: #4b9a2a;
+              }
+
+              .item-icon {
+                background: #edf5ea;
+
+                svg {
+                  path {
+                    fill: #4b9a2a;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .right {
+        flex: 1;
+
+        @include media(">=phone", "<=480px") {
+          padding: 20px 0;
+        }
+
+        .f-lbl {
+          // padding-bottom: 8px;
+          font-family: "Sofia Pro";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          color: #333539;
+          opacity: 0.7;
+        }
+
+        .txt {
+          font-family: "Sofia Pro";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 16px;
+          color: #333539;
+          border: 2px solid #8a8080;
+          border-radius: 5px;
+          opacity: 0.6;
+          padding: 8px;
+          width: 100%;
+        }
+
+        .field {
+          padding-bottom: 28px;
+          padding-left: 20px;
+          padding-right: 10px;
+          justify-content: start;
+          align-items: start;
+
+          @include media(">=phone", "<=480px") {
+            padding: 20px 0;
+          }
+
+          // &:first-child {
+          //   .f-lbl {
+          //     padding-bottom: 8px;
+          //   }
+          // }
+
+          .dropDown {
+            .category {
+              .cbox {
+                border: 1px solid #14192d;
+                opacity: 0.6;
+                background: none;
+              }
+            }
+          }
+        }
+
+        .btn-row {
+          align-items: end;
+          padding-bottom: 10px;
+          padding-left: 30px;
+          padding-right: 10px;
+
+          .btn-add-propertiy {
+            display: flex !important;
+            background: none;
+            color: #4b9a2a;
+            font-size: 14px;
+            border: 1px solid #4b9a2a;
+            border-radius: 6px;
+            padding: 8px;
+
+            svg {
+              width: 14px;
+              height: 14px;
+              margin-right: 5px;
+
+              path {
+                fill: #4b9a2a;
+                stroke: #4b9a2a;
+              }
+            }
+          }
+        }
+
+        .row {
+          margin-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 30px;
+          padding-right: 10px;
+          justify-content: space-between;
+          align-items: center;
+
+          &:first-child {
+            margin-top: 10px;
+          }
+
+          @include media(">=phone", "<=480px") {
+            margin-left: 0;
+            padding-left: 0px;
+          }
+
+          .txt {
+            @include media(">=phone", "<=480px") {
+              // width: 120px;
+              // margin-right: 10px;
+            }
+          }
+
+          .row-btn {
+            .btn-remove {
+              background: none;
+              color: #14192d;
+              opacity: 0.7;
+              padding: 6px 10px;
+              border-radius: 6px;
+              border: 1px solid #14192d;
+              height: 46px;
+            }
+          }
+        }
+      }
+    }
+
+    .action {
+      padding-right: 10px;
+      padding-top: 20px;
+
+      .btn {
+        border-radius: 8px;
+        color: #ffffff;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+
+// manage users 
+.wallet-address {
+  // display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.clickable-link {
+  color: #26c265;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.user-details-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.user-info {
+  position: relative;
+}
+
+.hover-menu {
+  display: none;
+  position: absolute;
+  top: 120%;
+  right: 0;
+  width: 200px;
+  padding: 0;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  border-radius: 4px;
+}
+
+.hover-menu-item {
+  font-size: 14px;
+  padding: 10px;
+  padding-left: 15px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  border-bottom: 1px solid #f6f6f6;
+  border-top: 1px solid #f6f6f6;
+}
+
+.menu-show {
+  display: block;
+}
+
+.hover-menu-item:hover {
+  background-color: #f6f6f6;
+}
+
+.u-img {
+  cursor: pointer;
+}
+
+.react-responsive-modal-modal {
+  border-radius: 4px;
+}
+
+.user-modal {
+  max-width: 350px;
+  padding: 18px;
+}
+
+.user-modal-para {
+  word-wrap: break-word;
+}
+
+.user-modal-para p {
+  width: 180px;
+}
+
+.user-modal-item {
+  padding: 10px 15px;
+  // border-bottom: 1px solid #ddd;
+}
+
+.user-modal-item h3 {
+  margin-right: 15px;
+}
+
+.social-icon {
+  display: inline-block;
+  color: #333;
+  text-decoration: none;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.isValid {
+  font-size: 12px;
+  color: red;
+}
+
+
+.add-currencie {
+  .field.flex.flex-col.visible-label {
+    padding-bottom: 35px !important;
+}
+  .css-1vm46xn-MuiAutocomplete-root{
+    width: 100%;
+  }
+  input::placeholder{
+    font-size: 12px;
+  }
+
+  .css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root {
+    font-size: 14px;
+    top: -3px;
+   }
+   .css-1jd61hx-MuiFormControl-root-MuiTextField-root .MuiInputLabel-root {
+    line-height: 1.4375em;
+}
+ .wrap .action .btn {
+  border-radius: 8px;
+  font-weight: 300;
+  width: 110px;
+  padding: 6px 10px;
+  border-radius: 5px;
+}
+.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #26C265;
+  border-width: 1px;
+}
+.css-1n04w30-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #26C265;
+  border-width: 1px;;
+}
+.css-113d811-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
+  color: #26C265 !important;
+}
+.css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #26C265;
+}
+.css-1n04w30-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+border-color: #26C265;
+}
+
+}
+
+//image uploader
+.upload__image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.upload-logo-container {
+  width: 100%;
+  // height: 200px;
+  display: flex;
+  justify-content: flex-start; 
+  align-items: center;
+  cursor: pointer;
+ 
+  text-align: left; 
+  
+ 
+}
+
+.image-item {
+  position: relative;
+  display: inline-block;
+}
+
+.uploaded-image {
+  aspect-ratio: 3/1;
+  width: 100%;
+  // height: auto;  
+  object-fit: fill;
+  border-radius: 0;
+}
+
+
+.remove-icon {
+  position: absolute;
+  top: -4px;
+  right: -1px;
+  cursor: pointer;
+  font-size: 18px;
+  color: red;
+  z-index: 1; 
+}
+
+
+
+//upload logo model
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #ddd;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.logo-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 1rem;
+  justify-content: center;
+}
+
+.logo-item {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.logo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.logo-item.selected {
+  border: 2px solid #007bff;
+}
+
+
+
+.custom-number-input {
+  height: 50px;
+  width: 100%;
+}
+
+.custom-number-input .MuiOutlinedInput-root {
+  height: 46px;
+}
+
+.custom-number-input input[type='number']::-webkit-outer-spin-button,
+.custom-number-input input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-number-input input[type='number'] {
+  -moz-appearance: textfield; /* For Firefox */
+}

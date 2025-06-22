@@ -1,0 +1,521 @@
+/* System Health Monitoring Styles */
+
+.system-health-monitoring {
+  padding: 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: white;
+}
+
+.system-health-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  color: white;
+}
+
+.monitoring-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.monitoring-title {
+  font-weight: 700;
+  background: linear-gradient(45deg, #fff, #e3f2fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.monitoring-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.monitoring-controls .MuiIconButton-root {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.monitoring-controls .MuiIconButton-root:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.monitoring-controls .MuiFormControlLabel-root {
+  color: white;
+}
+
+/* Health Cards */
+.health-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.health-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.health-card .MuiCardContent-root {
+  padding: 20px;
+}
+
+.health-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.health-content .MuiTypography-root {
+  color: white;
+}
+
+.health-content .MuiTypography-h4 {
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.health-icon {
+  font-size: 48px;
+  opacity: 0.7;
+  color: white;
+}
+
+/* Progress Bars */
+.health-card .MuiLinearProgress-root {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.health-card .MuiLinearProgress-bar {
+  border-radius: 4px;
+}
+
+/* Adapters Grid */
+.adapters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.adapter-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.adapter-status:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.adapter-status .MuiTypography-root {
+  color: white;
+  margin-bottom: 8px;
+}
+
+.adapter-status .MuiChip-root {
+  margin-bottom: 5px;
+}
+
+/* Charts */
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.chart-header .MuiTypography-h6 {
+  color: white;
+  font-weight: 600;
+}
+
+.chart-header .MuiFormControl-root {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.chart-header .MuiInputLabel-root,
+.chart-header .MuiSelect-root {
+  color: white;
+}
+
+.chart-header .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.chart-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+/* Cards */
+.system-health-monitoring .MuiCard-root {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.system-health-monitoring .MuiCardContent-root {
+  color: white;
+}
+
+.system-health-monitoring .MuiTypography-h6 {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Alerts */
+.alerts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.alerts-header .MuiTypography-h6 {
+  color: white;
+  font-weight: 600;
+}
+
+.alerts-header .MuiBadge-root .MuiSvgIcon-root {
+  color: white;
+  font-size: 28px;
+}
+
+/* Table */
+.system-health-monitoring .MuiTableContainer-root {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+.system-health-monitoring .MuiTable-root {
+  background: transparent;
+}
+
+.system-health-monitoring .MuiTableHead-root {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.system-health-monitoring .MuiTableHead-root .MuiTableCell-root {
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.system-health-monitoring .MuiTableBody-root .MuiTableCell-root {
+  color: #333;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.system-health-monitoring .MuiTableRow-root:hover {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+/* List Items */
+.system-health-monitoring .MuiList-root {
+  background: transparent;
+}
+
+.system-health-monitoring .MuiListItem-root {
+  border-radius: 8px;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
+}
+
+.system-health-monitoring .MuiListItem-root:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.system-health-monitoring .MuiListItemText-root .MuiTypography-root {
+  color: white;
+}
+
+.system-health-monitoring .MuiListItemIcon-root .MuiSvgIcon-root {
+  color: white;
+}
+
+/* Chips */
+.system-health-monitoring .MuiChip-root {
+  font-weight: 500;
+}
+
+.system-health-monitoring .MuiChip-colorSuccess {
+  background: rgba(76, 175, 80, 0.8);
+  color: white;
+}
+
+.system-health-monitoring .MuiChip-colorError {
+  background: rgba(244, 67, 54, 0.8);
+  color: white;
+}
+
+.system-health-monitoring .MuiChip-colorWarning {
+  background: rgba(255, 152, 0, 0.8);
+  color: white;
+}
+
+.system-health-monitoring .MuiChip-colorInfo {
+  background: rgba(33, 150, 243, 0.8);
+  color: white;
+}
+
+/* Buttons */
+.system-health-monitoring .MuiButton-root {
+  border-radius: 8px;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.system-health-monitoring .MuiButton-contained {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.system-health-monitoring .MuiButton-contained:hover {
+  background: linear-gradient(45deg, #5a6fd8, #6a4190);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.system-health-monitoring .MuiButton-outlined {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.system-health-monitoring .MuiButton-outlined:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Dialogs */
+.system-health-monitoring .MuiDialog-paper {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 15px;
+}
+
+.system-health-monitoring .MuiDialogTitle-root {
+  color: white;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.system-health-monitoring .MuiDialogContent-root {
+  color: white;
+}
+
+.system-health-monitoring .MuiDialogActions-root {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 16px 24px;
+}
+
+/* Text Fields */
+.system-health-monitoring .MuiTextField-root {
+  margin-bottom: 15px;
+}
+
+.system-health-monitoring .MuiInputLabel-root {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.system-health-monitoring .MuiInputLabel-root.Mui-focused {
+  color: white;
+}
+
+.system-health-monitoring .MuiOutlinedInput-root {
+  color: white;
+}
+
+.system-health-monitoring .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.system-health-monitoring .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.system-health-monitoring .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white;
+}
+
+/* Alerts */
+.system-health-monitoring .MuiAlert-root {
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.system-health-monitoring .MuiAlert-standardError {
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  color: #ffcdd2;
+}
+
+.system-health-monitoring .MuiAlert-standardSuccess {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  color: #c8e6c9;
+}
+
+.system-health-monitoring .MuiAlert-standardWarning {
+  background: rgba(255, 152, 0, 0.1);
+  border: 1px solid rgba(255, 152, 0, 0.3);
+  color: #ffe0b2;
+}
+
+.system-health-monitoring .MuiAlert-standardInfo {
+  background: rgba(33, 150, 243, 0.1);
+  border: 1px solid rgba(33, 150, 243, 0.3);
+  color: #bbdefb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .system-health-monitoring {
+    padding: 16px;
+  }
+  
+  .monitoring-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .monitoring-controls {
+    justify-content: center;
+  }
+  
+  .adapters-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  
+  .chart-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  
+  .alerts-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .health-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .health-icon {
+    font-size: 36px;
+  }
+  
+  .adapters-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .system-health-monitoring .MuiTableContainer-root {
+    overflow-x: auto;
+  }
+}
+
+/* Animation Effects */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.health-card:hover .health-icon {
+  animation: pulse 2s infinite;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.system-health-monitoring > * {
+  animation: slideIn 0.6s ease-out;
+}
+
+/* Loading States */
+.system-health-monitoring .MuiCircularProgress-root {
+  color: white;
+}
+
+.system-health-monitoring .MuiLinearProgress-root {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.system-health-monitoring .MuiLinearProgress-bar {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+}
+
+/* Scrollbar Styling */
+.system-health-monitoring ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.system-health-monitoring ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.system-health-monitoring ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.system-health-monitoring ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
