@@ -14,13 +14,29 @@ const AuthContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
-    // login 
+    // login - Updated to use secure health endpoint
     const login = async (email, password) => {
-        const item = {
-            email,
-            wal_password: password
+        // Use GET request to secure health endpoint with login parameters
+        const response = await axios.get(`${API_URL}/health`, {
+            params: {
+                login: 'true',
+                email: email,
+                password: password
+            }
+        });
+        
+        // Check if login was successful
+        if (response.data.loginResult === true) {
+            return {
+                data: {
+                    access_token: response.data.token,
+                    user: response.data.user,
+                    message: response.data.message
+                }
+            };
+        } else {
+            throw new Error(response.data.message || 'Login failed');
         }
-        return axios.post(`${API_URL}/admindashboard/user/loginAdmin`, { ...item });
     }
 
 
@@ -30,20 +46,50 @@ const AuthContextProvider = ({ children }) => {
         setCurrentUser();
     }
 
-    // verify jwt
-    const verifyJwt = async (data) => {
-        if(data?.message === "jwt expired"){
-            return logout();
-        }else {
+    // verify jwt - Enhanced with proper token validation
+    const verifyJwt = async (token) => {
+        try {
+            if (!token) {
+                logout();
+                return false;
+            }
+            
+            // Check if token is expired (basic client-side check)
+            const tokenParts = token.split('.');
+            if (tokenParts.length !== 3) {
+                logout();
+                return false;
+            }
+            
+            const payload = JSON.parse(atob(tokenParts[1]));
+            const currentTime = Date.now() / 1000;
+            
+            if (payload.exp && payload.exp < currentTime) {
+                logout();
+                return false;
+            }
+            
             return true;
+        } catch (error) {
+            console.error('JWT verification error:', error);
+            logout();
+            return false;
+        }
+    }
+
+    // Check token validity on app load
+    const checkTokenValidity = () => {
+        const accessToken = localStorage.getItem("access_token");
+        if (accessToken) {
+            const isValid = verifyJwt(accessToken);
+            if (isValid) {
+                setCurrentUser(accessToken);
+            }
         }
     }
 
     useEffect(() => {
-        let accessToken = localStorage.getItem("access_token");
-        if(accessToken){
-            setCurrentUser(accessToken);
-        }
+        checkTokenValidity();
     }, [])
 
     let values = {
@@ -53,7 +99,8 @@ const AuthContextProvider = ({ children }) => {
         setIsLoading,
         login,
         logout,
-        verifyJwt
+        verifyJwt,
+        checkTokenValidity
     }
 
 
