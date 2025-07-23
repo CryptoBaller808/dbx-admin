@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import '../css/TokenBannerManager.scss';
 
 const TokenManager = () => {
   const [tokenData, setTokenData] = useState({
@@ -13,6 +14,9 @@ const TokenManager = () => {
   const [tokens, setTokens] = useState([]);
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [editingToken, setEditingToken] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
 
   const networks = [
     'Ethereum',
@@ -34,9 +38,14 @@ const TokenManager = () => {
     try {
       setLoading(true);
       const response = await axios.get('https://dbx-backend.onrender.com/admindashboard/token/get');
-      setTokens(response.data.tokens || []);
+      if (response.data.success) {
+        setTokens(response.data.tokens || []);
+        console.log(`✅ [TokenManager] Loaded ${response.data.tokens?.length || 0} tokens`);
+      } else {
+        throw new Error(response.data.message || 'Failed to fetch tokens');
+      }
     } catch (error) {
-      console.error('Error fetching tokens:', error);
+      console.error('❌ [TokenManager] Error fetching tokens:', error);
       toast.error('Failed to fetch tokens');
     } finally {
       setLoading(false);
@@ -117,6 +126,106 @@ const TokenManager = () => {
     }
   };
 
+  // Edit token function
+  const handleEditToken = (token) => {
+    setEditingToken(token);
+    setTokenData({
+      name: token.name,
+      symbol: token.symbol,
+      network: token.network,
+      contractAddress: token.contractAddress || '',
+      icon: null // Don't pre-fill file input
+    });
+    setShowEditModal(true);
+  };
+
+  // Update token function
+  const handleUpdateToken = async (e) => {
+    e.preventDefault();
+    
+    if (!tokenData.name || !tokenData.symbol || !tokenData.network) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+
+    try {
+      setUploading(true);
+      
+      const formData = new FormData();
+      formData.append('id', editingToken.id);
+      formData.append('name', tokenData.name);
+      formData.append('symbol', tokenData.symbol);
+      formData.append('network', tokenData.network);
+      formData.append('contractAddress', tokenData.contractAddress);
+      if (tokenData.icon) {
+        formData.append('icon', tokenData.icon);
+      }
+
+      const response = await axios.put(`https://dbx-backend.onrender.com/admindashboard/token/update/${editingToken.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.data.success) {
+        toast.success('Token updated successfully!');
+        setShowEditModal(false);
+        setEditingToken(null);
+        
+        // Reset form
+        setTokenData({
+          name: '',
+          symbol: '',
+          network: '',
+          contractAddress: '',
+          icon: null
+        });
+        
+        // Refresh token list
+        fetchTokens();
+      } else {
+        throw new Error(response.data.message || 'Failed to update token');
+      }
+      
+    } catch (error) {
+      console.error('❌ [TokenManager] Error updating token:', error);
+      toast.error('Failed to update token');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  // Delete token function
+  const handleDeleteToken = async (tokenId) => {
+    try {
+      const response = await axios.delete(`https://dbx-backend.onrender.com/admindashboard/token/delete/${tokenId}`);
+      
+      if (response.data.success) {
+        toast.success('Token deleted successfully!');
+        fetchTokens(); // Refresh the list
+      } else {
+        throw new Error(response.data.message || 'Failed to delete token');
+      }
+    } catch (error) {
+      console.error('❌ [TokenManager] Error deleting token:', error);
+      toast.error('Failed to delete token');
+    }
+    setDeleteConfirm(null);
+  };
+
+  // Cancel edit
+  const handleCancelEdit = () => {
+    setShowEditModal(false);
+    setEditingToken(null);
+    setTokenData({
+      name: '',
+      symbol: '',
+      network: '',
+      contractAddress: '',
+      icon: null
+    });
+  };
+
   return (
     <div className="token-manager-page">
       <div className="page-header">
@@ -128,9 +237,9 @@ const TokenManager = () => {
         {/* Upload Form */}
         <div className="upload-section">
           <div className="section-card">
-            <h2 className="section-title">Add New Token</h2>
+            <h2 className="section-title">{editingToken ? 'Edit Token' : 'Add New Token'}</h2>
             
-            <form onSubmit={handleSubmit} className="token-form">
+            <form onSubmit={editingToken ? handleUpdateToken : handleSubmit} className="token-form">
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="token-name">Token Name *</label>
@@ -238,6 +347,22 @@ const TokenManager = () => {
                         <p className="contract-address">{token.contractAddress}</p>
                       )}
                     </div>
+                    <div className="token-actions">
+                      <button 
+                        className="btn-edit"
+                        onClick={() => handleEditToken(token)}
+                        title="Edit Token"
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button 
+                        className="btn-delete"
+                        onClick={() => setDeleteConfirm(token.id)}
+                        title="Delete Token"
+                      >
+                        🗑️ Delete
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -249,6 +374,43 @@ const TokenManager = () => {
           </div>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete this token? This action cannot be undone.</p>
+            <div className="modal-actions">
+              <button 
+                className="btn-cancel"
+                onClick={() => setDeleteConfirm(null)}
+              >
+                Cancel
+              </button>
+              <button 
+                className="btn-confirm-delete"
+                onClick={() => handleDeleteToken(deleteConfirm)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Form Buttons */}
+      {editingToken && (
+        <div className="form-actions-edit">
+          <button 
+            type="button"
+            className="btn-cancel"
+            onClick={handleCancelEdit}
+          >
+            Cancel Edit
+          </button>
+        </div>
+      )}
     </div>
   );
 };
