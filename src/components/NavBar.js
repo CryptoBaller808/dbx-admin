@@ -9,6 +9,8 @@ import {
   TransIcon,
 
 } from "../Icons";
+import TokenIcon from "../Icons/TokenIcon";
+import BannerIcon from "../Icons/BannerIcon";
 import { useAuthContext } from "../context/AuthContext";
 import Setting from "../Icons/Setting";
 const NavBar = () => {
@@ -23,6 +25,8 @@ const NavBar = () => {
       slug: "/cryptocurrencies",
     },
     { lbl: "Blockchains", icon: <BlockCaIcon />, slug: "/blockchains" },
+    { lbl: "Token Manager", icon: <TokenIcon />, slug: "/tokens" },
+    { lbl: "Banner Manager", icon: <BannerIcon />, slug: "/banners" },
     { lbl: "Manage Users", icon: <UsersIcon />, slug: "/users" },
     { lbl: "Visitor Tracking", icon: <TrackingIcon />, slug: "/tracking" },
     {
