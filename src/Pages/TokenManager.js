@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { API_URL } from '../config';
 import '../css/TokenBannerManager.scss';
 
 const TokenManager = () => {
@@ -37,7 +38,7 @@ const TokenManager = () => {
   const fetchTokens = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('https://dbx-backend.onrender.com/admindashboard/token/get');
+      const response = await axios.get(`${API_URL}/admindashboard/token/get`);
       if (response.data.success) {
         setTokens(response.data.tokens || []);
         console.log(`✅ [TokenManager] Loaded ${response.data.tokens?.length || 0} tokens`);
@@ -94,7 +95,7 @@ const TokenManager = () => {
         formData.append('icon', tokenData.icon);
       }
 
-      const response = await axios.post('https://dbx-backend.onrender.com/admindashboard/token/upload', formData, {
+      const response = await axios.post(`${API_URL}/admindashboard/token/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -161,7 +162,7 @@ const TokenManager = () => {
         formData.append('icon', tokenData.icon);
       }
 
-      const response = await axios.put(`https://dbx-backend.onrender.com/admindashboard/token/update/${editingToken.id}`, formData, {
+      const response = await axios.put(`${API_URL}/admindashboard/token/update/${editingToken.id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -198,7 +199,7 @@ const TokenManager = () => {
   // Delete token function
   const handleDeleteToken = async (tokenId) => {
     try {
-      const response = await axios.delete(`https://dbx-backend.onrender.com/admindashboard/token/delete/${tokenId}`);
+      const response = await axios.delete(`${API_URL}/admindashboard/token/delete/${tokenId}`);
       
       if (response.data.success) {
         toast.success('Token deleted successfully!');

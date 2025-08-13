@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { API_URL } from '../config';
 import '../css/AdminLogin.scss';
 
 const AdminLogin = ({ onLogin }) => {
@@ -22,7 +23,7 @@ const AdminLogin = ({ onLogin }) => {
 
   const verifyToken = async (token) => {
     try {
-      const response = await axios.get('https://dbx-backend.onrender.com/admindashboard/auth/profile', {
+      const response = await axios.get(`${API_URL}/admindashboard/auth/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -60,7 +61,7 @@ const AdminLogin = ({ onLogin }) => {
     try {
       setLoading(true);
       
-      const response = await axios.post('https://dbx-backend.onrender.com/admindashboard/auth/login', {
+      const response = await axios.post(`${API_URL}/admindashboard/auth/login`, {
         username: credentials.username,
         password: credentials.password
       });
