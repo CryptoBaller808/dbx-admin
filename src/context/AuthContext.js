@@ -1,6 +1,5 @@
-import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { API_URL } from '../config';
+import { http } from '../lib/http';
 
 const AuthContext = createContext();
 
@@ -8,45 +7,68 @@ export const useAuthContext = () => {
     return useContext(AuthContext);
 }
 
-
 const AuthContextProvider = ({ children }) => {
-
     const [currentUser, setCurrentUser] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
-    // login - Updated to use secure health endpoint
+    // Real authentication flow using proper backend routes
     const login = async (email, password) => {
-        // Use GET request to secure health endpoint with login parameters
-        const response = await axios.get(`${API_URL}/health`, {
-            params: {
-                login: 'true',
-                email: email,
-                password: password
-            }
-        });
-        
-        // Check if login was successful
-        if (response.data.loginResult === true) {
-            return {
-                data: {
-                    access_token: response.data.token,
-                    user: response.data.user,
-                    message: response.data.message
+        try {
+            setIsLoading(true);
+            
+            // Use proper admin authentication endpoint
+            const response = await http.post('/admindashboard/auth/login', {
+                email,
+                password
+            });
+            
+            if (response.data.success && response.data.token) {
+                // Store token in localStorage
+                localStorage.setItem('dbx_admin_token', response.data.token);
+                
+                // Verify token by getting profile
+                const profileResponse = await http.get('/admindashboard/auth/profile');
+                
+                if (profileResponse.data.success) {
+                    setCurrentUser(profileResponse.data.user);
+                    return {
+                        data: {
+                            access_token: response.data.token,
+                            user: profileResponse.data.user,
+                            message: response.data.message || 'Login successful'
+                        }
+                    };
                 }
-            };
-        } else {
+            }
+            
             throw new Error(response.data.message || 'Login failed');
+        } catch (error) {
+            console.error('Login error:', error);
+            throw new Error(error.response?.data?.message || error.message || 'Login failed');
+        } finally {
+            setIsLoading(false);
         }
     }
 
-
     // logout 
-    const logout = () => {
-        localStorage.removeItem("access_token");
-        setCurrentUser();
+    const logout = async () => {
+        try {
+            // Call backend logout endpoint if token exists
+            const token = localStorage.getItem('dbx_admin_token');
+            if (token) {
+                await http.post('/admindashboard/auth/logout');
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+        } finally {
+            // Always clear local storage and state
+            localStorage.removeItem('dbx_admin_token');
+            localStorage.removeItem('access_token'); // Legacy cleanup
+            setCurrentUser(null);
+        }
     }
 
-    // verify jwt - Enhanced with proper token validation
+    // verify jwt using backend profile endpoint
     const verifyJwt = async (token) => {
         try {
             if (!token) {
@@ -54,22 +76,16 @@ const AuthContextProvider = ({ children }) => {
                 return false;
             }
             
-            // Check if token is expired (basic client-side check)
-            const tokenParts = token.split('.');
-            if (tokenParts.length !== 3) {
-                logout();
-                return false;
+            // Verify token with backend
+            const response = await http.get('/admindashboard/auth/profile');
+            
+            if (response.data.success && response.data.user) {
+                setCurrentUser(response.data.user);
+                return true;
             }
             
-            const payload = JSON.parse(atob(tokenParts[1]));
-            const currentTime = Date.now() / 1000;
-            
-            if (payload.exp && payload.exp < currentTime) {
-                logout();
-                return false;
-            }
-            
-            return true;
+            logout();
+            return false;
         } catch (error) {
             console.error('JWT verification error:', error);
             logout();
@@ -78,13 +94,16 @@ const AuthContextProvider = ({ children }) => {
     }
 
     // Check token validity on app load
-    const checkTokenValidity = () => {
-        const accessToken = localStorage.getItem("access_token");
-        if (accessToken) {
-            const isValid = verifyJwt(accessToken);
-            if (isValid) {
-                setCurrentUser(accessToken);
+    const checkTokenValidity = async () => {
+        const token = localStorage.getItem('dbx_admin_token') || localStorage.getItem('access_token');
+        if (token) {
+            // Migrate legacy token
+            if (!localStorage.getItem('dbx_admin_token') && localStorage.getItem('access_token')) {
+                localStorage.setItem('dbx_admin_token', token);
+                localStorage.removeItem('access_token');
             }
+            
+            await verifyJwt(token);
         }
     }
 
@@ -103,13 +122,11 @@ const AuthContextProvider = ({ children }) => {
         checkTokenValidity
     }
 
-
     return (
         <AuthContext.Provider value={values}>
             { children }
         </AuthContext.Provider>
     )
 }
-
 
 export default AuthContextProvider;

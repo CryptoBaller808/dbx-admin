@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import { API_URL } from '../config';
+import { http } from '../lib/http';
 
 const BannerManager = () => {
   const [bannerData, setBannerData] = useState({
@@ -28,7 +27,7 @@ const BannerManager = () => {
   const fetchBanners = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${API_URL}/admindashboard/banner/get`);
+      const response = await http.get('/admindashboard/banner/get');
       setBanners(response.data.banners || []);
     } catch (error) {
       console.error('Error fetching banners:', error);
@@ -77,7 +76,7 @@ const BannerManager = () => {
       formData.append('placement', bannerData.placement);
       formData.append('image', bannerData.image);
 
-      const response = await axios.post(`${API_URL}/admindashboard/banner/upload`, formData, {
+      const response = await http.post('/admindashboard/banner/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
