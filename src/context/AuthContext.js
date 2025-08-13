@@ -16,9 +16,10 @@ const AuthContextProvider = ({ children }) => {
         try {
             setIsLoading(true);
             
-            // Use proper admin authentication endpoint
+            // Use proper admin authentication endpoint with both email and username for compatibility
             const response = await http.post('/admindashboard/auth/login', {
                 email,
+                username: email, // compatibility - backend accepts either
                 password
             });
             
@@ -26,15 +27,15 @@ const AuthContextProvider = ({ children }) => {
                 // Store token in localStorage
                 localStorage.setItem('dbx_admin_token', response.data.token);
                 
-                // Verify token by getting profile
+                // Immediately verify token by getting profile
                 const profileResponse = await http.get('/admindashboard/auth/profile');
                 
                 if (profileResponse.data.success) {
-                    setCurrentUser(profileResponse.data.user);
+                    setCurrentUser(profileResponse.data.admin); // Backend returns 'admin' object
                     return {
                         data: {
                             access_token: response.data.token,
-                            user: profileResponse.data.user,
+                            user: profileResponse.data.admin,
                             message: response.data.message || 'Login successful'
                         }
                     };
@@ -79,8 +80,8 @@ const AuthContextProvider = ({ children }) => {
             // Verify token with backend
             const response = await http.get('/admindashboard/auth/profile');
             
-            if (response.data.success && response.data.user) {
-                setCurrentUser(response.data.user);
+            if (response.data.success && response.data.admin) {
+                setCurrentUser(response.data.admin); // Backend returns 'admin' object
                 return true;
             }
             
