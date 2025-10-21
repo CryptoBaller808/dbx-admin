@@ -6,6 +6,7 @@ import axios from "axios";
 
 import "./App.css";
 import "./css/App.scss";
+import "./css/TokenBannerManager.scss";
 
 // Import css files
 import "slick-carousel/slick/slick.css";
@@ -17,6 +18,8 @@ import Blockchains from "./Pages/Blockchains";
 import ManageUsers from "./Pages/ManageUsers";
 import TransactionDetails from "./Pages/TransactionDetail";
 import Tracking from "./Pages/Tracking";
+import TokenManager from "./Pages/TokenManager";
+import BannerManager from "./Pages/BannerManager";
 
 import NavBar from "./components/NavBar";
 import Header from "./components/Header";
@@ -80,6 +83,8 @@ function App() {
                   exact
                 />
                 <Route path="/tracking" element={<Tracking />} exact />
+                <Route path="/tokens" element={<TokenManager />} exact />
+                <Route path="/banners" element={<BannerManager />} exact />
                 <Route path="/settings" element={<Settings />} exact />
               </Route>
 

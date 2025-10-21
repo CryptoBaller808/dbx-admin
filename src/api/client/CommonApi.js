@@ -1,4 +1,6 @@
-const API_BASE_URL = process.env.REACT_APP_API_URL  ; 
+import { API_URL } from '../../config';
+
+const API_BASE_URL = API_URL; 
 
 
 const client = async ({
