@@ -53,7 +53,7 @@ class BannerApiService {
     const response = await fetch(`${this.baseUrl}/admin/banner/upload`, {
       method: 'POST',
       headers: {
-        'X-Admin-Key': this.adminKey,
+        'x-admin-key': this.adminKey,
         // Don't set Content-Type for FormData - browser will set it with boundary
       },
       body: formData,
@@ -62,7 +62,7 @@ class BannerApiService {
     return this.handleResponse(response);
   }
 
-  // Get banners with optional placement filter
+  // Get banners with optional placement filter (public endpoint - no auth needed)
   async getBanners(placement = null) {
     const url = placement 
       ? `${this.baseUrl}/admin/banners?placement=${encodeURIComponent(placement)}`
@@ -82,7 +82,10 @@ class BannerApiService {
   async deleteBanner(bannerId) {
     const response = await fetch(`${this.baseUrl}/admin/banner/${bannerId}`, {
       method: 'DELETE',
-      headers: this.getHeaders(),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-admin-key': this.adminKey,
+      },
     });
 
     return this.handleResponse(response);
