@@ -321,8 +321,8 @@ const BannerManager = () => {
           <div className="banners-grid">
             {banners.map(banner => (
               <div key={banner.id} className="banner-card">
-                <div className="banner-image">
-                  <img src={banner.url} alt={banner.altText || banner.title} />
+              <div className="banner-image">
+                <img src={banner.thumbnailUrl || banner.url} alt={banner.altText || banner.title} />
                 </div>
                 <div className="banner-info">
                   <h3>{banner.title}</h3>
