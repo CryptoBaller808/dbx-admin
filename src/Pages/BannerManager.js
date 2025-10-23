@@ -24,6 +24,9 @@ const BannerManager = () => {
   ];
 
   useEffect(() => {
+    // Log backend base URL for ops
+    console.log('[Banners] Backend:', process.env.REACT_APP_BACKEND_API);
+    
     // Check API configuration
     const status = bannerApi.getConfigStatus();
     setConfigStatus(status);
