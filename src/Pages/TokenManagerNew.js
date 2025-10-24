@@ -247,7 +247,16 @@ const TokenManagerNew = () => {
       closeModal();
     } catch (error) {
       console.error('[TokenManager] Error saving token:', error);
-      toast.error(error.message || 'Failed to save token');
+      
+      // Display detailed validation errors if available
+      if (error.errors) {
+        const errorMessage = tokenApi.formatValidationErrors(error.errors);
+        toast.error(errorMessage || 'Validation failed');
+      } else if (error.message) {
+        toast.error(error.message);
+      } else {
+        toast.error('Failed to save token');
+      }
     } finally {
       setUploading(false);
     }
@@ -260,7 +269,7 @@ const TokenManagerNew = () => {
       await fetchTokens();
     } catch (error) {
       console.error('[TokenManager] Error toggling active:', error);
-      toast.error('Failed to update token');
+      toast.error(error.message || 'Failed to update token');
     }
   };
   
@@ -272,7 +281,7 @@ const TokenManagerNew = () => {
       await fetchTokens();
     } catch (error) {
       console.error('[TokenManager] Error deleting token:', error);
-      toast.error('Failed to delete token');
+      toast.error(error.message || 'Failed to delete token');
     }
   };
   

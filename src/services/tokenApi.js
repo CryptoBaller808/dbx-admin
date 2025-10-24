@@ -1,6 +1,7 @@
 /**
  * Token API Service
  * Handles all token-related API calls for admin panel
+ * Prompt C: Enhanced error handling with detailed validation errors
  */
 
 const BASE = process.env.REACT_APP_BACKEND_API;
@@ -16,6 +17,36 @@ if (!ADMIN_KEY) {
 }
 
 /**
+ * Custom error class for API errors with detailed field errors
+ */
+export class TokenApiError extends Error {
+  constructor(message, errors = null, code = null) {
+    super(message);
+    this.name = 'TokenApiError';
+    this.errors = errors; // Field-level validation errors
+    this.code = code; // Error code from backend
+  }
+}
+
+/**
+ * Handle API response and extract errors
+ */
+async function handleResponse(res) {
+  const data = await res.json();
+  
+  if (!res.ok) {
+    // Extract detailed error information
+    const message = data.message || data.error || `HTTP ${res.status}`;
+    const errors = data.errors || null;
+    const code = data.code || null;
+    
+    throw new TokenApiError(message, errors, code);
+  }
+  
+  return data;
+}
+
+/**
  * GET /admin/tokens
  * Public endpoint - List all tokens
  */
@@ -27,8 +58,7 @@ export async function getTokens(activeOnly = false) {
   }
   
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`tokens_http_${res.status}`);
-  return res.json();
+  return handleResponse(res);
 }
 
 /**
@@ -38,8 +68,17 @@ export async function getTokens(activeOnly = false) {
 export async function getPairs() {
   const url = `${BASE}/admin/pairs`;
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`pairs_http_${res.status}`);
-  return res.json();
+  return handleResponse(res);
+}
+
+/**
+ * GET /admin/health/token
+ * Public endpoint - Health check
+ */
+export async function healthCheck() {
+  const url = `${BASE}/admin/health/token`;
+  const res = await fetch(url);
+  return handleResponse(res);
 }
 
 /**
@@ -58,12 +97,7 @@ export async function createToken(tokenData) {
     body: JSON.stringify(tokenData),
   });
   
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.error || `create_token_http_${res.status}`);
-  }
-  
-  return res.json();
+  return handleResponse(res);
 }
 
 /**
@@ -82,12 +116,7 @@ export async function updateToken(id, updates) {
     body: JSON.stringify(updates),
   });
   
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.error || `update_token_http_${res.status}`);
-  }
-  
-  return res.json();
+  return handleResponse(res);
 }
 
 /**
@@ -104,12 +133,7 @@ export async function deleteToken(id, hardDelete = false) {
     },
   });
   
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.error || `delete_token_http_${res.status}`);
-  }
-  
-  return res.json();
+  return handleResponse(res);
 }
 
 /**
@@ -130,11 +154,25 @@ export async function uploadLogo(id, file) {
     body: formData,
   });
   
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.error || `upload_logo_http_${res.status}`);
+  return handleResponse(res);
+}
+
+/**
+ * Format validation errors for display
+ * @param {Object} errors - Field-level errors from backend
+ * @returns {string} - Formatted error message
+ */
+export function formatValidationErrors(errors) {
+  if (!errors || typeof errors !== 'object') {
+    return null;
   }
   
-  return res.json();
+  const errorMessages = Object.entries(errors).map(([field, message]) => {
+    // Capitalize first letter of field name
+    const fieldName = field.charAt(0).toUpperCase() + field.slice(1);
+    return `${fieldName}: ${message}`;
+  });
+  
+  return errorMessages.join('\n');
 }
 
