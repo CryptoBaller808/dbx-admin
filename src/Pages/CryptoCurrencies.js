@@ -268,9 +268,28 @@ const CryptoCurrencies = () => {
       />
       {isLoading && <Spinner />}
       <div className="crpto-page flex flex-col">
+        {/* Deprecation Notice */}
+        <div style={{
+          background: '#fff3cd',
+          border: '1px solid #ffeaa7',
+          borderRadius: '8px',
+          padding: '16px',
+          margin: '20px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
+        }}>
+          <span style={{ fontSize: '24px' }}>⚠️</span>
+          <div>
+            <strong style={{ color: '#856404', display: 'block', marginBottom: '4px' }}>Legacy Page - Read Only</strong>
+            <span style={{ color: '#856404', fontSize: '14px' }}>
+              This page is deprecated. Please use the new <a href="/tokens" style={{ color: '#007bff', textDecoration: 'underline' }}>Token Manager</a> for all token operations.
+            </span>
+          </div>
+        </div>
         <div className="wrapWidth wrap flex flex-col">
           <div className="pg-hder flex aic">
-            <div className="page-tag">Cryptocurrencies</div>
+            <div className="page-tag">Cryptocurrencies (Legacy)</div>
             <div className="right-side flex aic">
               <div className="actions flex aic">
                 <div className="dropDown flex aic jc flex-col rel">

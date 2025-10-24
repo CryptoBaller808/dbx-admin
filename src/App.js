@@ -18,7 +18,7 @@ import Blockchains from "./Pages/Blockchains";
 import ManageUsers from "./Pages/ManageUsers";
 import TransactionDetails from "./Pages/TransactionDetail";
 import Tracking from "./Pages/Tracking";
-import TokenManager from "./Pages/TokenManager";
+import TokenManagerNew from "./Pages/TokenManagerNew";
 import BannerManager from "./Pages/BannerManager";
 
 import NavBar from "./components/NavBar";
@@ -83,7 +83,7 @@ function App() {
                   exact
                 />
                 <Route path="/tracking" element={<Tracking />} exact />
-                <Route path="/tokens" element={<TokenManager />} exact />
+                <Route path="/tokens" element={<TokenManagerNew />} exact />
                 <Route path="/banners" element={<BannerManager />} exact />
                 <Route path="/settings" element={<Settings />} exact />
               </Route>
