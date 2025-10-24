@@ -32,28 +32,14 @@ const Main = () => {
     });
   }, []);
 
-  // dashboard summary
-  const getDashbaordSummary = async () => {
-    setIsLoading(true);
-
-    try {
-      const res = await axios.get(`${API_URL}/admindashboard/user/dashboardSummary`,
-        { headers: headers });
-      const data = res.data;
-      console.log(data)
-      let checkExpiry = verifyJwt(data);
-      if (checkExpiry) {
-        setDashBoardData(data)
-      }
-      setIsLoading(false);
-    } catch (e) {
-      console.log(e);
-      setIsLoading(false);
-    }
-  }
-
+  // Dashboard summary - Legacy endpoint removed (Prompt D)
+  // The dashboardSummary endpoint no longer exists in the new backend
+  // Dashboard cards will show default values or can be updated to use new token/user APIs
+  
   useEffect(() => {
-    getDashbaordSummary()
+    // Optional: Could fetch data from new APIs here if needed
+    // For now, dashboard shows static data from reportsVal array
+    console.log('[Main] Dashboard loaded - legacy dashboardSummary call removed');
   }, [])
 
 
