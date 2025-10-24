@@ -180,21 +180,80 @@ const TokenManagerNew = () => {
   };
   
   const validateForm = () => {
-    if (!formData.symbol || !formData.name || !formData.chain || !formData.priceProvider) {
-      toast.error('Please fill in all required fields');
-      return false;
+    const errors = {};
+    
+    // Symbol validation
+    if (!formData.symbol) {
+      errors.symbol = 'Symbol is required';
+    } else if (!/^[A-Z0-9]+$/.test(formData.symbol)) {
+      errors.symbol = 'Symbol must contain only uppercase letters A-Z and numbers 0-9';
+    } else if (formData.symbol.length < 1 || formData.symbol.length > 10) {
+      errors.symbol = 'Symbol must be between 1 and 10 characters';
     }
     
-    // Validate symbol format (uppercase, alphanumeric)
-    if (!/^[A-Z0-9]+$/.test(formData.symbol)) {
-      toast.error('Symbol must be uppercase alphanumeric');
-      return false;
+    // Name validation
+    if (!formData.name) {
+      errors.name = 'Name is required';
+    } else if (formData.name.trim().length < 1) {
+      errors.name = 'Name cannot be empty';
+    } else if (formData.name.length > 100) {
+      errors.name = 'Name must be 100 characters or less';
     }
     
-    // Validate decimals
-    const decimals = parseInt(formData.decimals);
-    if (isNaN(decimals) || decimals < 0 || decimals > 18) {
-      toast.error('Decimals must be between 0 and 18');
+    // Decimals validation
+    if (formData.decimals === undefined || formData.decimals === null || formData.decimals === '') {
+      errors.decimals = 'Decimals is required';
+    } else {
+      const decimals = Number(formData.decimals);
+      if (!Number.isInteger(decimals)) {
+        errors.decimals = 'Decimals must be an integer';
+      } else if (decimals < 0 || decimals > 18) {
+        errors.decimals = 'Decimals must be between 0 and 18';
+      }
+    }
+    
+    // Chain validation
+    if (!formData.chain) {
+      errors.chain = 'Chain is required';
+    } else if (formData.chain.trim().length < 1) {
+      errors.chain = 'Chain cannot be empty';
+    }
+    
+    // DefaultQuote validation
+    if (!formData.defaultQuote) {
+      errors.defaultQuote = 'Default quote is required';
+    } else if (!/^[A-Z0-9]+$/.test(formData.defaultQuote)) {
+      errors.defaultQuote = 'Default quote must contain only uppercase letters A-Z and numbers 0-9';
+    }
+    
+    // Sort validation
+    if (formData.sort === undefined || formData.sort === null || formData.sort === '') {
+      errors.sort = 'Sort is required';
+    } else {
+      const sortNum = Number(formData.sort);
+      if (!Number.isInteger(sortNum)) {
+        errors.sort = 'Sort must be an integer';
+      } else if (sortNum < 0) {
+        errors.sort = 'Sort must be a positive integer';
+      }
+    }
+    
+    // Active validation (should always be set, but check anyway)
+    if (formData.active === undefined || formData.active === null) {
+      errors.active = 'Active status is required';
+    }
+    
+    // PriceProvider validation
+    if (!formData.priceProvider) {
+      errors.priceProvider = 'Price provider is required';
+    }
+    
+    // If there are errors, show them all in one toast
+    if (Object.keys(errors).length > 0) {
+      const errorMessage = Object.entries(errors)
+        .map(([field, message]) => `${field}: ${message}`)
+        .join('\n');
+      toast.error(errorMessage);
       return false;
     }
     
@@ -443,7 +502,6 @@ const TokenManagerNew = () => {
                     value={formData.symbol}
                     onChange={handleInputChange}
                     placeholder="BTC"
-                    required
                     disabled={!!editingToken}
                     style={{ textTransform: 'uppercase' }}
                   />
@@ -458,7 +516,6 @@ const TokenManagerNew = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Bitcoin"
-                    required
                   />
                 </div>
               </div>
@@ -470,7 +527,6 @@ const TokenManagerNew = () => {
                     name="chain"
                     value={formData.chain}
                     onChange={handleInputChange}
-                    required
                   >
                     <option value="">Select Chain</option>
                     {chains.map(chain => (
@@ -488,7 +544,6 @@ const TokenManagerNew = () => {
                     onChange={handleInputChange}
                     min="0"
                     max="18"
-                    required
                   />
                   <small>0-18</small>
                 </div>
@@ -513,7 +568,6 @@ const TokenManagerNew = () => {
                     name="priceProvider"
                     value={formData.priceProvider}
                     onChange={handleInputChange}
-                    required
                   >
                     {priceProviders.map(provider => (
                       <option key={provider} value={provider}>{provider}</option>
