@@ -293,11 +293,18 @@ const TokenManagerNew = () => {
       if (logoFile && savedToken.id) {
         try {
           const result = await tokenApi.uploadLogo(savedToken.id, logoFile);
-          savedToken = result.token;
+          // Backend returns { success: true, data: { logoUrl, token } }
+          if (result.data && result.data.token) {
+            savedToken = result.data.token;
+          } else if (result.token) {
+            // Fallback for direct token response
+            savedToken = result.token;
+          }
           toast.success('Logo uploaded successfully');
+          console.log('[TokenManager] Logo uploaded:', result.data?.logoUrl || 'URL not returned');
         } catch (error) {
           console.error('[TokenManager] Error uploading logo:', error);
-          toast.error('Token saved but logo upload failed');
+          toast.error(`Token saved but logo upload failed: ${error.message}`);
         }
       }
       
