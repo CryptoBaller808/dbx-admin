@@ -1141,3 +1141,26 @@
   }
 }
 
+
+
+// Tooltip styling
+.tooltip-icon {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 14px;
+  cursor: help;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// Form label with tooltip
+label {
+  .tooltip-icon {
+    vertical-align: middle;
+  }
+}
+

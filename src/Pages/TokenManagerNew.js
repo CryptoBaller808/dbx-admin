@@ -596,15 +596,18 @@ const TokenManagerNew = () => {
               
               <div className="form-row">
                 <div className="form-group">
-                  <label>TradingView Symbol</label>
+                  <label>
+                    TradingView Symbol
+                    <span className="tooltip-icon" title="If unavailable on TradingView, leave blank—the chart will be hidden, but price & orders will still work.">ℹ️</span>
+                  </label>
                   <input
                     type="text"
                     name="tvSymbol"
                     value={formData.tvSymbol}
                     onChange={handleInputChange}
-                    placeholder="BTCUSDT"
+                    placeholder="e.g., BINANCE:BTCUSDT or leave blank"
                   />
-                  <small>Leave empty for auto-generation</small>
+                  <small>Format: EXCHANGE:SYMBOL or leave blank if not on TradingView</small>
                 </div>
                 
                 <div className="form-group">
